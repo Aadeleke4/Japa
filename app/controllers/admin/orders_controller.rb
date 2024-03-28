@@ -1,9 +1,9 @@
-class Admin::OrdersController < AdminController
+class Admin::OrdersController < AdminController 
   before_action :set_admin_order, only: %i[ show edit update destroy ]
 
   # GET /admin/orders or /admin/orders.json
   def index
-    @admin_orders = Order.all
+  @admin_orders = Order.all
   end
 
   # GET /admin/orders/1 or /admin/orders/1.json
