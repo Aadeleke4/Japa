@@ -1,2 +1,2 @@
-class Admin::Order < ApplicationRecord
+class Order < ApplicationRecord
 end
