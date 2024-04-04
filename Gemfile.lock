@@ -106,6 +106,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (3.1.0)
+    dotenv-rails (3.1.0)
+      dotenv (= 3.1.0)
+      railties (>= 6.1)
     drb (2.2.1)
     erubi (1.12.0)
     ffi (1.16.3)
@@ -167,6 +171,7 @@ GEM
     nokogiri (1.16.3-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (7.0.11)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -246,6 +251,7 @@ GEM
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.0)
+    stripe (10.14.0)
     tailwindcss-rails (2.3.0)
       railties (>= 6.0.0)
     tailwindcss-rails (2.3.0-aarch64-linux)
@@ -295,16 +301,19 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  dotenv-rails
   font-awesome-sass (~> 6.5.1)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  pagy (~> 7.0)
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.2)
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  stripe (~> 10.14)
   tailwindcss-rails
   turbo-rails
   tzinfo-data

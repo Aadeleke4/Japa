@@ -71,3 +71,8 @@ end
 
 gem "font-awesome-sass", "~> 6.5.1"
 gem "devise", "~> 4.9"
+
+gem "stripe", "~> 10.14"
+gem 'dotenv-rails', groups: [:development, :test]
+
+gem "pagy", "~> 7.0"

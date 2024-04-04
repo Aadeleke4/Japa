@@ -1,7 +1,7 @@
 class CheckoutsController < ApplicationController
   def create
-    stripe_secret_key = Rails.application.credentials.dig(:stripe, :secret_key)
-    Stripe.api_key = stripe_secret_key
+    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+    cart = params[:cart]
     cart = params[:cart]
     line_items = cart.map do |item|
       product = Product.find(item["id"])
@@ -11,8 +11,7 @@ class CheckoutsController < ApplicationController
         render json: { error: "Not enough stock for #{product.name} in size #{item["size"]}. Only #{product_stock.amount} left." }, status: 400
         return
       end
-
-      { 
+        { 
         quantity: item["quantity"].to_i,
         price_data: { 
           product_data: {
@@ -24,8 +23,7 @@ class CheckoutsController < ApplicationController
         }
       } 
     end
-
-    puts "line_items: #{line_items}"
+       puts "line_items: #{line_items}"
 
     session = Stripe::Checkout::Session.create(
       mode: "payment",
@@ -47,4 +45,4 @@ class CheckoutsController < ApplicationController
   def cancel
     render :cancel
   end
-end
+  end

@@ -49,7 +49,7 @@
               <% end %>
             </tbody>
           </table>
-          
+          <%== pagy_nav(@not_fulfilled_pagy) if @not_fulfilled_pagy.pages > 1 %>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
               <% end %>
             </tbody>
           </table>
-          
+          <%== pagy_nav(@fulfilled_pagy) if @fulfilled_pagy.pages > 1 %>
         </div>
       </div>
     </div>
