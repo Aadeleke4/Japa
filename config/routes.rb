@@ -17,10 +17,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  get '/products', to: 'products#index'
+
   authenticated :admin_user do
     root to: "admin#index", as: :admin_root
   end
-  
+  resources :products, only: [:index]
   resources :categories, only: [:show]
   resources :products, only: [:show]
   get "admin" => "admin#index"

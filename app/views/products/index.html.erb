@@ -1,0 +1,23 @@
+<%= form_with(url: products_path, method: "get") do %>
+    <%= text_field_tag :keyword, params[:keyword], placeholder: "Keyword" %>
+    <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]), include_blank: true %>
+    <%= submit_tag "Search" %>
+  <% end %>
+<h1>All Products</h1>
+<div class="flex flex-wrap">
+  <% @products.each do |product| %>
+    <div class="p-4">
+    
+      <% if product.images.attached? %>
+        <%= image_tag product.images.first, class: "max-w-lg" %>
+      <% else %>
+        <%= image_tag "http://via.placeholder.com/100x100", class: "max-w-lg" %>
+      <% end %>
+      <%= link_to product.name, product %>
+      <p><%= product.description %></p>
+      <p><%= number_to_currency(product.price) %></p>
+    </div>
+  <% end %>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+
+</div>
