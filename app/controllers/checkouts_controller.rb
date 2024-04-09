@@ -2,7 +2,6 @@ class CheckoutsController < ApplicationController
   def create
     Stripe.api_key = ENV['STRIPE_SECRET_KEY']
     cart = params[:cart]
-    cart = params[:cart]
     line_items = cart.map do |item|
       product = Product.find(item["id"])
       product_stock = product.stocks.find{ |ps| ps.size == item["size"] }
