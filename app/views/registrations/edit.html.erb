@@ -1,0 +1,1 @@
+<%= form.select :province_id, options_for_select(Province.pluck(:name, :id), @user.province_id), prompt: 'Select province' %>

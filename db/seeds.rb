@@ -11,11 +11,11 @@
 
 require 'faker'
 
-# Create categories
+# Create categories if they don't exist
 categories = ['Sweat Shirt', 'Belt', 'Accesories', 'Hats']
 
 categories.each do |category_name|
-  Category.create(name: category_name)
+  Category.find_or_create_by(name: category_name)
 end
 
 # Create products
@@ -23,7 +23,7 @@ end
   name = Faker::Commerce.product_name
   description = Faker::Lorem.sentence
   price = Faker::Commerce.price(range: 50..500.0)
-  category_id = rand(1..4)
+  category_id = Category.pluck(:id).sample
 
   Product.create(
     name: name,
@@ -31,4 +31,22 @@ end
     price: price,
     category_id: category_id
   )
+end
+
+# Create provinces if they don't exist
+provinces = [
+  'Alberta',
+  'British Columbia',
+  'Manitoba',
+  'New Brunswick',
+  'Newfoundland and Labrador',
+  'Nova Scotia',
+  'Ontario',
+  'Prince Edward Island',
+  'Quebec',
+  'Saskatchewan'
+]
+
+provinces.each do |province|
+  Province.find_or_create_by(name: province)
 end

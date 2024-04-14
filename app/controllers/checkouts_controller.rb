@@ -22,6 +22,7 @@ class CheckoutsController < ApplicationController
         }
       } 
     end
+    
        puts "line_items: #{line_items}"
 
     session = Stripe::Checkout::Session.create(
@@ -36,7 +37,36 @@ class CheckoutsController < ApplicationController
 
     render json: { url: session.url }
   end
-
+  def calculate_taxes(province, total_price)
+    gst_rates = {
+      'Alberta' => 0.05,
+      'British Columbia' => 0.05,
+      'Manitoba' => 0.05,
+      'New Brunswick' => 0.15, # HST
+      'Newfoundland and Labrador' => 0.15, # HST
+      'Northwest Territories' => 0.05,
+      'Nova Scotia' => 0.15, # HST
+      'Nunavut' => 0.05,
+      'Ontario' => 0.13, # HST
+      'Prince Edward Island' => 0.15, # HST
+      'Quebec' => 0.05,
+      'Saskatchewan' => 0.06,
+      'Yukon' => 0.05
+    }
+  
+    pst_rates = {
+      'British Columbia' => 0.07,
+      'Manitoba' => 0.08,
+      'Saskatchewan' => 0.06
+    }
+  
+    gst_rate = gst_rates[province] || 0
+    pst_rate = pst_rates[province] || 0
+    total_taxes = total_price * (gst_rate + pst_rate)
+  
+    { gst: total_price * gst_rate, pst: total_price * pst_rate, total_taxes: total_taxes }
+  end
+  
   def success
     render :success
   end

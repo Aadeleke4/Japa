@@ -1,0 +1,3 @@
+class ContactPage < ApplicationRecord
+    
+end
