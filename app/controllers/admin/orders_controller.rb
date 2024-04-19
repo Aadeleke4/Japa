@@ -47,6 +47,8 @@ class Admin::OrdersController < AdminController
       end
     end
   end
+  
+  
 
   # DELETE /admin/orders/1 or /admin/orders/1.json
   def destroy
@@ -66,6 +68,9 @@ class Admin::OrdersController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
-      params.require(:order).permit(:customer_email, :fulfilled, :total, :address)
+      params.require(:order).permit(:customer_email, :fulfilled, :total, :address, :user_id)
     end
+    
+    
+    
 end

@@ -25,8 +25,10 @@ resources :users, only: [:edit, :update]
   root "home#index"
 
   get '/products', to: 'products#index'
-  get '/contact', to: 'contact_pages#show'
-  get '/about', to: 'about_pages#show'
+  # config/routes.rb
+get 'about', to: 'about_pages#show', as: :about_page
+get 'contact', to: 'contact_pages#show', as: :contact_page
+
   
   authenticated :admin_user do
     root to: "admin#index", as: :admin_root
@@ -40,8 +42,6 @@ resources :users, only: [:edit, :update]
   post "/checkout" => "checkouts#create"
   get "success" => "checkouts#success"
   get "cancel" => "checkouts#cancel"
-  post "webhooks" => "webhooks#stripe"
-
-
+  post "webhook", to: "webhooks#stripe"
   
 end

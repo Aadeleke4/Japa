@@ -50,7 +50,7 @@ class CheckoutsController < ApplicationController
       # Add more provinces with their tax rates
     }
 
-    taxes = tax_rates[province] || { gst: 0, pst: 0 }
+    taxes = tax_rates[province] || { gst: 0, pst: 0,hst: 0 }
   total_taxes = total_price * (taxes[:gst] + taxes[:pst])
   total_price_with_taxes = total_price + total_taxes
 

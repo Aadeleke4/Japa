@@ -50,3 +50,11 @@ provinces = [
 provinces.each do |province|
   Province.find_or_create_by(name: province)
 end
+
+AboutPage.find_or_create_by(title: "About Us") do |page|
+  page.content = "This is the About Us page. Edit this content via the admin panel."
+end
+
+ContactPage.find_or_create_by(title: "Contact Us") do |page|
+  page.content = "This is the Contact Us page. Edit this content via the admin panel."
+end

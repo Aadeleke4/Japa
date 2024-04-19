@@ -69,18 +69,19 @@ updateTotalDisplay(total) {
 
   populateProvincesDropdown() {
     const taxRates = {
-      "British Columbia": { gst: 0.05, pst: 0.07 },
-      "Saskatchewan": { gst: 0.05, pst: 0.06 },
-      "Ontario": { gst: 0.05, pst: 0.00 },
-      "Quebec": { gst: 0.05, pst: 0.09975 },
-      "New Brunswick": { gst: 0.05, pst: 0.00 },
-      "Nova Scotia": { gst: 0.05, pst: 0.00 },
-      "Newfoundland and Labrador": { gst: 0.05, pst: 0.00 },
-      "Prince Edward Island": { gst: 0.05, pst: 0.00 },
-      "Yukon": { gst: 0.05, pst: 0.00 },
-      "Northwest Territories": { gst: 0.05, pst: 0.00 },
-      "Nunavut": { gst: 0.05, pst: 0.00 },
-      "Manitoba":{ gst: 0.05, pst: 0.08 }
+      "Alberta": { "gst": 0.05, "pst": 0.00, "hst": 0.00 },
+  "British Columbia": { "gst": 0.05, "pst": 0.07, "hst": 0.00 },
+  "Manitoba": { "gst": 0.05, "pst": 0.07, "hst": 0.00 },
+  "New Brunswick": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Newfoundland and Labrador": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Northwest Territories": { "gst": 0.05, "pst": 0.00, "hst": 0.00 },
+  "Nova Scotia": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Nunavut": { "gst": 0.05, "pst": 0.00, "hst": 0.00 },
+  "Ontario": { "gst": 0.00, "pst": 0.00, "hst": 0.13 },
+  "Prince Edward Island": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Quebec": { "gst": 0.05, "pst": 0.09975, "hst": 0.00 },
+  "Saskatchewan": { "gst": 0.05, "pst": 0.06, "hst": 0.00 },
+  "Yukon": { "gst": 0.05, "pst": 0.00, "hst": 0.00 }
     };
 
     const provinceSelect = document.getElementById("province");
@@ -158,29 +159,33 @@ updateTotalDisplay(total) {
   updateTaxes(total, province) {
     // Define your tax rates here
     const taxRates = {
-      "British Columbia": { gst: 0.05, pst: 0.07 },
-      "Saskatchewan": { gst: 0.05, pst: 0.06 },
-      "Ontario": { gst: 0.05, pst: 0.00 },
-      "Quebec": { gst: 0.05, pst: 0.09975 },
-      "New Brunswick": { gst: 0.05, pst: 0.00 },
-      "Nova Scotia": { gst: 0.05, pst: 0.00 },
-      "Newfoundland and Labrador": { gst: 0.05, pst: 0.00 },
-      "Prince Edward Island": { gst: 0.05, pst: 0.00 },
-      "Yukon": { gst: 0.05, pst: 0.00 },
-      "Northwest Territories": { gst: 0.05, pst: 0.00 },
-      "Nunavut": { gst: 0.05, pst: 0.00 }
-      // Add more provinces with their rates
+      "Alberta": { "gst": 0.05, "pst": 0.00, "hst": 0.00 },
+  "British Columbia": { "gst": 0.05, "pst": 0.07, "hst": 0.00 },
+  "Manitoba": { "gst": 0.05, "pst": 0.07, "hst": 0.00 },
+  "New Brunswick": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Newfoundland and Labrador": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Northwest Territories": { "gst": 0.05, "pst": 0.00, "hst": 0.00 },
+  "Nova Scotia": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Nunavut": { "gst": 0.05, "pst": 0.00, "hst": 0.00 },
+  "Ontario": { "gst": 0.00, "pst": 0.00, "hst": 0.13 },
+  "Prince Edward Island": { "gst": 0.00, "pst": 0.00, "hst": 0.15 },
+  "Quebec": { "gst": 0.05, "pst": 0.09975, "hst": 0.00 },
+  "Saskatchewan": { "gst": 0.05, "pst": 0.06, "hst": 0.00 },
+  "Yukon": { "gst": 0.05, "pst": 0.00, "hst": 0.00 }
+      
     };
 
-    const rates = taxRates[province] || { gst: 0, pst: 0 };
+    const rates = taxRates[province] || { gst: 0, pst: 0, hst: 0 };
     const gst = total * rates.gst;
     const pst = total * rates.pst;
-    const totalWithTaxes = total + gst + pst;
-
+    const hst = total * rates.hst;
+    const totalWithTaxes = total + gst + pst + hst; // Include HST in the total calculation
+    
     let taxContainer = document.getElementById("taxDetails");
     taxContainer.innerHTML = `
-      GST ($${rates.gst * 100}%): $${(gst / 100).toFixed(2)}<br>
-      PST ($${rates.pst * 100}%): $${(pst / 100).toFixed(2)}<br>
+      GST ($${(rates.gst * 100).toFixed(2)}%): $${(gst / 100).toFixed(2)}<br>
+      PST ($${(rates.pst * 100).toFixed(2)}%): $${(pst / 100).toFixed(2)}<br>
+      HST ($${(rates.hst * 100).toFixed(2)}%): $${(hst / 100).toFixed(2)}<br>
       Total with Taxes: $${(totalWithTaxes / 100).toFixed(2)}
     `;
   }

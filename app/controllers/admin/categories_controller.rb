@@ -22,17 +22,23 @@ class Admin::CategoriesController < AdminController
   # POST /admin/categories or /admin/categories.json
   def create
     @admin_category = Category.new(admin_category_params)
-
+  
     respond_to do |format|
       if @admin_category.save
-        format.html { redirect_to admin_category_url(@admin_category), notice: "Category was successfully created." }
+        flash[:success] = "Category was successfully created."
+        format.html { redirect_to admin_category_url(@admin_category), notice: flash[:success] }
         format.json { render :show, status: :created, location: @admin_category }
+        session[:last_created_category_id] = @admin_category.id
       else
+        # The flash.now[:error] is updated to show full error messages from the model
+        flash.now[:error] = @admin_category.errors.full_messages.to_sentence
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @admin_category.errors, status: :unprocessable_entity }
       end
     end
   end
+  
+  
 
   # PATCH/PUT /admin/categories/1 or /admin/categories/1.json
   def update
